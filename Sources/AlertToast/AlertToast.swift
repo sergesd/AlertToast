@@ -680,7 +680,7 @@ public extension View{
     ///   - show: Binding<Bool>
     ///   - alert: () -> AlertToast
     /// - Returns: `AlertToast`
-    func toast(isPresenting: Binding<Bool>, duration: Double = 2, tapToDismiss: Bool = true, offsetY: CGFloat = 0, alert: @escaping () -> AlertToast, onTap: (() -> ())? = nil, completion: (() -> ())? = nil, preferredSize: CGSize? = nil) -> some View{
+    func toast(isPresenting: Binding<Bool>, duration: Double = 2, preferredSize: CGSize? = nil, tapToDismiss: Bool = true, offsetY: CGFloat = 0, alert: @escaping () -> AlertToast, onTap: (() -> ())? = nil, completion: (() -> ())? = nil) -> some View{
         myPreferredSize = preferredSize
         return modifier(AlertToastModifier(isPresenting: isPresenting, duration: duration, tapToDismiss: tapToDismiss, offsetY: offsetY, alert: alert, onTap: onTap, completion: completion))
     }
