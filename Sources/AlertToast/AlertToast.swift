@@ -11,6 +11,8 @@
 import SwiftUI
 import Combine
 
+fileprivate var myPreferredSize: CGSize? = nil
+
 @available(iOS 13, macOS 11, *)
 fileprivate struct AnimatedCheckmark: View {
     
@@ -601,8 +603,8 @@ fileprivate struct WithFrameModifier: ViewModifier{
     
     var withFrame: Bool
     
-    var maxWidth: CGFloat = 175
-    var maxHeight: CGFloat = 175
+    var maxWidth: CGFloat = myPreferredSize?.width ?? 175
+    var maxHeight: CGFloat = myPreferredSize?.height ?? 175
     
     @ViewBuilder
     func body(content: Content) -> some View {
@@ -678,8 +680,9 @@ public extension View{
     ///   - show: Binding<Bool>
     ///   - alert: () -> AlertToast
     /// - Returns: `AlertToast`
-    func toast(isPresenting: Binding<Bool>, duration: Double = 2, tapToDismiss: Bool = true, offsetY: CGFloat = 0, alert: @escaping () -> AlertToast, onTap: (() -> ())? = nil, completion: (() -> ())? = nil) -> some View{
-        modifier(AlertToastModifier(isPresenting: isPresenting, duration: duration, tapToDismiss: tapToDismiss, offsetY: offsetY, alert: alert, onTap: onTap, completion: completion))
+    func toast(isPresenting: Binding<Bool>, duration: Double = 2, tapToDismiss: Bool = true, offsetY: CGFloat = 0, alert: @escaping () -> AlertToast, onTap: (() -> ())? = nil, completion: (() -> ())? = nil, preferredSize: CGSize? = nil) -> some View{
+        myPreferredSize = preferredSize
+        return modifier(AlertToastModifier(isPresenting: isPresenting, duration: duration, tapToDismiss: tapToDismiss, offsetY: offsetY, alert: alert, onTap: onTap, completion: completion))
     }
     
     /// Choose the alert background
